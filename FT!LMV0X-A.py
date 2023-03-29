@@ -1,44 +1,24 @@
 import tkinter as tk
 from tkinter import filedialog
- 
-class LevelEditor:
-    def __init__(self, master):
-        # Create the main window
-        self.master = master
-        self.master.title("Level Editor")
-        self.master.geometry("600x400")
 
-        # Add a menu bar
-        self.menu_bar = tk.Menu(self.master)
-        self.master.config(menu=self.menu_bar)
+root = tk.Tk()
+root.title("Super Mario World Level Editor")
+root.geometry("800x600")
 
-        # Add a File menu
-        self.file_menu = tk.Menu(self.menu_bar)
-        self.menu_bar.add_cascade(label="File", menu=self.file_menu)
-        self.file_menu.add_command(label="Open", command=self.open_file)
-        self.file_menu.add_separator()
-        self.file_menu.add_command(label="Exit", command=self.master.quit)
+def open_rom():
+    rom_path = filedialog.askopenfilename()
+    with open(rom_path, "rb") as f:
+        rom_data = f.read()
+    return rom_data
 
-        # Add a canvas for level editing
-        self.level_canvas = tk.Canvas(self.master, bg="white")
-        self.level_canvas.pack(fill=tk.BOTH, expand=True)
+def edit_smw_code(rom_data):
+    # Your code to edit the SMW ROM data goes here.
+    pass
 
-    def open_file(self):
-        # Open a file dialog and load the selected file
-        file_path = filedialog.askopenfilename()
-        if file_path:
-            self.load_level_data(file_path)
+level_canvas = tk.Canvas(root, width=768, height=512, bg="white")
+level_canvas.pack()
 
-    def load_level_data(self, file_path):
-        # Load level data from the file and render it on the canvas
-        pass  # Implement this based on your level format and rendering logic
+open_rom_button = tk.Button(root, text="Open ROM", command=open_rom)
+open_rom_button.pack()
 
-
-def main():
-    root = tk.Tk()
-    app = LevelEditor(root)
-    root.mainloop()
-
-
-if __name__ == "__main__":
-    main()
+root.mainloop()
